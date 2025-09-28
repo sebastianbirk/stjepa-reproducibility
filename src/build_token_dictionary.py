@@ -139,13 +139,6 @@ def build_token_dictionary(token_dictionary_file_path: str,
     
     # Initialize with mandatory tokens
     token_dict = {'<pad>': 0, '<mask>': 1}
-    
-    # Add cls tokens
-    # e.g. in the case of cell graph tokenizer cls_0: 2 is for cell, cls_1: 3 is
-    # for 1st neighbor, cls_2: 4 is for 2nd neighbor, ..., up to 100 neighbors
-    # e.g. in the case of cell neighborhood tokenizer cls_0: 2 is for cell,
-    # cls_1: 3 is for neighborhood 
-    token_dict.update({f'<cls_{i}>' : i + 2 for i in range(100)})
 
     # Add other special tokens
     curr_token_dict_size = len(token_dict)

@@ -3,11 +3,10 @@ Sample Usage
 ----------
 CellNeighborhoodTokenizer
 .. terminal
-    >>> python analysis/tokenization/create_tokenized_dataset.py --config_file config/cell-neighborhood-tokenizer/cell-neighborhood-tokenizer_sss2-1b_1p.yaml
-
+    >>> python analysis/tokenization/create_tokenized_dataset.py --config_file analysis/tokenization/configs/smb1-20b_1p_config.yaml
 CellGraphTokenizer
 .. terminal
-    >>> python analysis/tokenization/create_tokenized_dataset.py --config_file config/cell-graph-tokenizer/cell-graph-tokenizer_sss2-1b_1p.yaml
+    >>> python analysis/tokenization/create_tokenized_dataset.py --config_file analysis/tokenization/configs/smb1-20b_1p_config.yaml
 
 Description
 ----------

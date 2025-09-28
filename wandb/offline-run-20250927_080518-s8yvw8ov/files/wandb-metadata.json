@@ -1,0 +1,45 @@
+{
+  "os": "Linux-5.15.0-141-generic-x86_64-with-glibc2.35",
+  "python": "CPython 3.10.15",
+  "startedAt": "2025-09-27T07:05:18.744658Z",
+  "args": [
+    "--config_file",
+    "analysis/tokenization/configs/smb1-20b_1p_config.yaml"
+  ],
+  "program": "/nfs/team361/sb75/sttokbench/analysis/tokenization/create_tokenized_dataset.py",
+  "codePath": "analysis/tokenization/create_tokenized_dataset.py",
+  "git": {
+    "remote": "https://github.com/sebastianbirk/sttokbench.git",
+    "commit": "4b969de3107de7443ccd109ac543f3cf724c876e"
+  },
+  "root": "/nfs/team361/sb75/sttokbench",
+  "host": "farm22-gpu0302",
+  "executable": "/nfs/users/nfs_s/sb75/.venvs/nichejepa/bin/python",
+  "codePathLocal": "analysis/tokenization/create_tokenized_dataset.py",
+  "cpu_count": 96,
+  "cpu_count_logical": 192,
+  "gpu": "NVIDIA H100 80GB HBM3",
+  "gpu_count": 1,
+  "disk": {
+    "/": {
+      "total": "134145380352",
+      "used": "83147886592"
+    }
+  },
+  "memory": {
+    "total": "2163977871360"
+  },
+  "cpu": {
+    "count": 96,
+    "countLogical": 192
+  },
+  "gpu_nvidia": [
+    {
+      "name": "NVIDIA H100 80GB HBM3",
+      "memoryTotal": "85520809984",
+      "cudaCores": 16896,
+      "architecture": "Hopper"
+    }
+  ],
+  "cudaVersion": "12.4"
+}

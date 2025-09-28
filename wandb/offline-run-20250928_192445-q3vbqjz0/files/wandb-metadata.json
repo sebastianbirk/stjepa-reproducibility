@@ -1,0 +1,34 @@
+{
+  "os": "Linux-5.15.0-140-generic-x86_64-with-glibc2.35",
+  "python": "CPython 3.10.15",
+  "startedAt": "2025-09-28T18:24:45.528559Z",
+  "args": [
+    "--config_file",
+    "analysis/tokenization/configs/mmb0-P1-239b_1p_config.yaml"
+  ],
+  "program": "/nfs/team361/sb75/sttokbench/analysis/tokenization/create_tokenized_dataset.py",
+  "codePath": "analysis/tokenization/create_tokenized_dataset.py",
+  "git": {
+    "remote": "https://github.com/sebastianbirk/sttokbench.git",
+    "commit": "4b969de3107de7443ccd109ac543f3cf724c876e"
+  },
+  "root": "/nfs/team361/sb75/sttokbench",
+  "host": "node-14-17",
+  "executable": "/nfs/users/nfs_s/sb75/.venvs/nichejepa/bin/python",
+  "codePathLocal": "analysis/tokenization/create_tokenized_dataset.py",
+  "cpu_count": 128,
+  "cpu_count_logical": 256,
+  "disk": {
+    "/": {
+      "total": "134145380352",
+      "used": "9228488704"
+    }
+  },
+  "memory": {
+    "total": "2151235735552"
+  },
+  "cpu": {
+    "count": 128,
+    "countLogical": 256
+  }
+}
