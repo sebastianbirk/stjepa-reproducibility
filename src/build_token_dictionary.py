@@ -139,6 +139,13 @@ def build_token_dictionary(token_dictionary_file_path: str,
     
     # Initialize with mandatory tokens
     token_dict = {'<pad>': 0, '<mask>': 1}
+    
+    # Add cls tokens
+    # e.g. in the case of cell graph tokenizer cls_0: 2 is for cell, cls_1: 3 is
+    # for 1st neighbor, cls_2: 4 is for 2nd neighbor, ..., up to 100 neighbors
+    # e.g. in the case of cell neighborhood tokenizer cls_0: 2 is for cell,
+    # cls_1: 3 is for neighborhood 
+    token_dict.update({f'<cls_{i}>' : i + 2 for i in range(100)})
 
     # Add other special tokens
     curr_token_dict_size = len(token_dict)
@@ -262,22 +269,22 @@ if __name__ == '__main__':
     parser.add_argument(
         '--data_directory_path',
         type=str,
-        default="/lustre/scratch126/cellgen/team361/DATASETS",
+        default="/lustre/scratch126/cellgen/lotfollahi/DATASETS",
         help='Data directory path.')
     parser.add_argument(
         '--cohort_dataset_names_file_path',
         type=str,
-        default="/lustre/scratch126/cellgen/team361/sb75/nichejepa-reproducibility/analysis/data_preparation/hst_corpus_70m_dataset_names.txt",
+        default="/nfs/team361/sb75/sttokbench/analysis/tokenization/dataset_list.txt",
         help='Path to the file containing datasets of the cohort.')  
     parser.add_argument(
         '--token_dictionary_file_path',
         type=str,
-        default="/lustre/scratch126/cellgen/team361/sb75/nichejepa-reproducibility/artifacts/data/token_dictionary_homo_sapiens.pkl",
+        default="/nfs/team361/sb75/sttokbench/artifacts/data/token_dictionary_mus_musculus.pkl",
         help='Token dictionary file path.')
     parser.add_argument(
         '--ensembl_release',
         type=int,
-        default=111,
+        default=110,
         help='Ensembl release for retrieving gene IDs.')                    
     args = parser.parse_args()
     

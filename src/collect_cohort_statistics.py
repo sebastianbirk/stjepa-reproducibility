@@ -1,12 +1,19 @@
 """
-This script collects the basic statistics of all datasets in a cohort. A cohort is defined as a collection of one or more datasets which themselves are a collection of one or more samples/batches. The statistics collected include the number of cells, number of genes, counts per cell, genes per cell, dataset ID, batch ID, assay, species, tissue, condition, and the path to the dataset. The statistics are saved in a CSV file and counts and genes per cell are saved in pickle files.
+This script collects the basic statistics of all datasets in a cohort.
+A cohort is defined as a collection of one or more datasets which
+themselves are a collection of one or more samples. The statistics
+collected include the number of cells, number of genes, counts per cell,
+genes per cell, dataset ID, batch ID, assay, species, tissue, condition,
+and the path to the dataset. The statistics are saved in a CSV file and
+counts and genes per cell are saved in pickle files.
 
 Usage:
-```bash
+```
 python collect_dataset_statistics.py --cohort_dataset_names_file_path [COHORT_NAME]
 ```
 
-The `cohort_dataset_names_file_path` is the path to a file containing all dataset names for which the statistics are to be collected.
+The `cohort_dataset_names_file_path` is the path to a file containing
+all dataset names for which the statistics are to be collected.
 """
 
 import argparse
@@ -30,23 +37,24 @@ def compute_batch_statistics(cohort_name: str,
     if ("total_counts" not in adata_batch.obs) or ("n_genes_by_counts" not in adata_batch.obs):
         sc.pp.calculate_qc_metrics(adata_batch, inplace=True, percent_top=None)
 
-    batch_stats_dict = {'cohort_name': cohort_name,
-                        'dataset_name': dataset_name,
-                        'dataset_id': adata_batch.uns['dataset_id'],
-                        'batch': adata_batch.uns['batch'],
-                        'n_cells': adata_batch.shape[0],
-                        'n_genes': adata_batch.shape[1],
-                        'min_counts_per_cell': min(adata_batch.obs['total_counts']),
-                        'max_counts_per_cell': max(adata_batch.obs['total_counts']),
-                        'median_counts_per_cell': np.median(adata_batch.obs['total_counts']),
-                        'min_genes_per_cell': min(adata_batch.obs['n_genes_by_counts']),
-                        'max_genes_per_cell': max(adata_batch.obs['n_genes_by_counts']),
-                        'median_genes_per_cell': np.median(adata_batch.obs['n_genes_by_counts']),
-                        'assay': adata_batch.uns['assay'],
-                        'species': adata_batch.uns['species'],
-                        'tissue': adata_batch.uns['tissue'],
-                        'condition': adata_batch.uns['condition'],
-                        'adata_batch_path': str(adata_batch_path)}
+    batch_stats_dict = {
+        'cohort_name': cohort_name,
+        'dataset_name': dataset_name,
+        'dataset_id': adata_batch.uns['dataset_id'],
+        'batch': adata_batch.uns['batch'],
+        'n_cells': adata_batch.shape[0],
+        'n_genes': adata_batch.shape[1],
+        'min_counts_per_cell': min(adata_batch.obs['total_counts']),
+        'max_counts_per_cell': max(adata_batch.obs['total_counts']),
+        'median_counts_per_cell': np.median(adata_batch.obs['total_counts']),
+        'min_genes_per_cell': min(adata_batch.obs['n_genes_by_counts']),
+        'max_genes_per_cell': max(adata_batch.obs['n_genes_by_counts']),
+        'median_genes_per_cell': np.median(adata_batch.obs['n_genes_by_counts']),
+        'assay': adata_batch.uns['assay'],
+        'species': adata_batch.uns['species'],
+        'tissue': adata_batch.uns['tissue'],
+        'condition': adata_batch.uns['condition'],
+        'adata_batch_path': str(adata_batch_path)}
 
     batch_counts_per_cell = adata_batch.obs['total_counts'].values.tolist()
     batch_genes_per_cell = adata_batch.obs['n_genes_by_counts'].values.tolist()
@@ -65,7 +73,8 @@ def compute_cohort_statistics(
     genes_per_cell = []
 
     for dataset_name in dataset_names:
-        for adata_batch_path in input_directory.glob(f"{dataset_name}/*.h5ad"):
+        dataset_directory = input_directory / dataset_name
+        for adata_batch_path in dataset_directory.glob(f"*.h5ad"):
             batch_stats_dict, batch_counts_per_cell, batch_genes_per_cell = compute_batch_statistics(
                 cohort_name,
                 dataset_name,
@@ -95,7 +104,8 @@ def main(args):
         dataset_names=dataset_names)
 
     # Save statistics to disk
-    os.makedirs(f"{args.results_directory_path}/{args.cohort_name}", exist_ok=True)
+    os.makedirs(
+        f"{args.results_directory_path}/{args.cohort_name}", exist_ok=True)
     statistics_file = f"{args.results_directory_path}/{args.cohort_name}/{args.cohort_name}_statistics.csv"
     counts_file = f"{args.results_directory_path}/{args.cohort_name}/{args.cohort_name}_counts.pkl"
     genes_file = f"{args.results_directory_path}/{args.cohort_name}/{args.cohort_name}_genes.pkl"
@@ -122,11 +132,11 @@ if __name__ == '__main__':
                         help='Results directory path.')
     parser.add_argument('--cohort_name',
                         type=str,
-                        default="mst_corpus",
+                        default="mst_corpus_10m",
                         help='Path to the file containing all datasets in the cohort.')
     parser.add_argument('--cohort_dataset_names_file_path',
                         type=str,
-                        default="/nfs/team361/sb75/nichejepa-reproducibility/analysis/data_preparation/hst_corpus_90m/hst_corpus_90m_dataset_names.txt", # "/nfs/team361/sb75/nichejepa-reproducibility/analysis/data_preparation/hst_corpus_80m/hst_corpus_80m_dataset_names.txt", "/nfs/team361/sb75/nichejepa-reproducibility/analysis/data_preparation/hst_corpus_70m/hst_corpus_70m_dataset_names.txt",
+                        default="/nfs/team361/sb75/sttokbench/analysis/tokenization/dataset_list.txt",
                         help='Path to the file containing all datasets in the cohort.')
     args = parser.parse_args()
     
