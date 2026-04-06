@@ -12,7 +12,7 @@ echo "==> Activating virtual environment"
 source "$VENV_PATH/bin/activate"
 
 echo "==> Installing PyTorch with CUDA 12.4"
-uv pip install torch torchvision --index-url https://download.pytorch.org/whl/cu124
+uv pip install "torch==2.5.1" torchvision --index-url https://download.pytorch.org/whl/cu124
 
 echo "==> Cloning nicheformer repository"
 if [ -d "$REPO_DIR" ]; then
