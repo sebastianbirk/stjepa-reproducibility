@@ -210,3 +210,8 @@ data
 results
 
 wandb
+
+artifacts
+
+analysis/mouse_benchmarking/nicheformer
+analysis/mouse_benchmarking/.pybiomart.sqlite
